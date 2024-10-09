@@ -1,0 +1,9 @@
+# Requirements for testing `my_package_name`.
+
+mypy
+pre-commit
+pyroma
+pytest
+pytest-cov
+pytest-mock
+ruff
