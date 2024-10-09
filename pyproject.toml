@@ -47,7 +47,7 @@ python = ">=3.8"
 
 
 [tool.ruff]
-line-length = 79
+line-length = 120
 
 
 [tool.ruff.lint]
