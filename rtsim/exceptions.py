@@ -43,6 +43,22 @@ class RowCountError(Exception):
         super().__init__(f"Expected {value!r} to have {rows} rows.")
 
 
+class StringError(Exception):
+    """String type error."""
+
+    def __init__(self, value: Any) -> None:
+        """Initialize string type error."""
+        super().__init__(f"Expected {value!r} to be a string.")
+
+
+class StringLengthError(Exception):
+    """String length error."""
+
+    def __init__(self, value: Any) -> None:
+        """Initialize string length error."""
+        super().__init__(f"Expected {value!r} to be a string of 1 to 140 characters.")
+
+
 class TimeCountError(Exception):
     """Time step count error."""
 

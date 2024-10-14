@@ -1,11 +1,13 @@
 """RTSim validators."""
 
 import numpy as np
-from rtsim.exceptions import (
+from .exceptions import (
     ColCountError,
     MatrixTypeError,
     NumDimError,
     RowCountError,
+    StringError,
+    StringLengthError,
     TimeCountError,
 )
 
@@ -16,7 +18,7 @@ COLS = 1
 
 
 def constant_vector(value):
-    """Constant vector validator."""
+    """Validate constant vector."""
     if not isinstance(value, np.ndarray):
         raise MatrixTypeError(value)
 
@@ -32,8 +34,17 @@ def constant_vector(value):
         raise ColCountError(value, COLS)
 
 
+def string(value):
+    """Validate string input."""
+    if not isinstance(value, str):
+        raise StringError(value)
+    too_long = 141
+    if not (0 < len(value) < too_long):
+        raise StringLengthError(value)
+
+
 def time_vector(value):
-    """Constant vector validator."""
+    """Validate time vector."""
     if not isinstance(value, np.ndarray):
         raise MatrixTypeError(value)
 
