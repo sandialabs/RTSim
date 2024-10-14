@@ -4,6 +4,7 @@ The ``RTSim`` package.
 RTSim is a Python module for simulating the inertial outputs of rotational testbeds (RT).
 """
 
+from .axis import Axis
 from .body import Body
 from .frame import Frame
 from .mount import Mount
