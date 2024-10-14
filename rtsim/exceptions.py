@@ -27,12 +27,36 @@ class MatrixTypeError(TypeError):
         super().__init__(f"Expected {value!r} to be a numpy array.")
 
 
+class MaxValueError(Exception):
+    """Maximum value exeeded error."""
+
+    def __init__(self, value: Any, maxvalue: int | float) -> None:
+        """Initialize maximum value error."""
+        super().__init__(f"Expected {value!r} to be no more than {maxvalue}")
+
+
+class MinValueError(Exception):
+    """Minimum value not met error."""
+
+    def __init__(self, value: Any, minvalue: int | float) -> None:
+        """Initialize minimum value error."""
+        super().__init__(f"Expected {value!r} to be at least {minvalue}")
+
+
 class NumDimError(Exception):
     """Number of dimensions error."""
 
     def __init__(self, value: Any) -> None:
         """Initialize number of dimensions error."""
         super().__init__(f"Expected {value!r} to have 2 or 3 dimensions.")
+
+
+class NumberTypeError(TypeError):
+    """Number type error."""
+
+    def __init__(self, value: Any) -> None:
+        """Initialize number type error."""
+        super().__init__(f"Expected {value!r} to be an int or float")
 
 
 class PVATypeError(TypeError):

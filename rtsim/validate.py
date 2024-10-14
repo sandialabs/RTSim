@@ -4,7 +4,10 @@ import numpy as np
 from .exceptions import (
     ColCountError,
     MatrixTypeError,
+    MaxValueError,
+    MinValueError,
     NumDimError,
+    NumberTypeError,
     RowCountError,
     StringError,
     StringLengthError,
@@ -32,6 +35,16 @@ def constant_vector(value):
 
     if shape[1] != COLS:
         raise ColCountError(value, COLS)
+
+
+def number(value, minvalue=None, maxvalue=None):
+    """Validate number input."""
+    if not isinstance(value, (int, float)):
+        raise NumberTypeError(value)
+    if minvalue is not None and value < minvalue:
+        raise MinValueError(value, minvalue)
+    if maxvalue is not None and value > maxvalue:
+        raise MaxValueError(value, maxvalue)
 
 
 def string(value):
