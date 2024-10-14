@@ -27,6 +27,14 @@ class NumDimError(Exception):
         super().__init__(f"Expected {value!r} to have 2 or 3 dimensions.")
 
 
+class PVATypeError(TypeError):
+    """PVA type error."""
+
+    def __init__(self, value: str) -> None:
+        """Initialize position, velocity, acceleration type error."""
+        super().__init__(f"Expected '{value}' to be ConstantPVA or TimePVA.")
+
+
 class RowCountError(Exception):
     """Row count error."""
 
