@@ -11,6 +11,14 @@ class ColCountError(Exception):
         super().__init__(f"Expected {value!r} to have {cols} columns.")
 
 
+class FrameTypeError(TypeError):
+    """Frame type error."""
+
+    def __init__(self, value: str, frame_type: str) -> None:
+        """Initialize frame type error."""
+        super().__init__(f"Expected '{value}' to be a {frame_type} coordinate frame.")
+
+
 class MatrixTypeError(TypeError):
     """Matrix type error."""
 
