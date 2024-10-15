@@ -3,6 +3,14 @@
 from typing import Any  # , Callable
 
 
+class ComponentTypeError(TypeError):
+    """Component type error."""
+
+    def __init__(self, obj: Any, obj_type) -> None:
+        """Initialize column count error."""
+        super().__init__(f"Expected {obj!r} to be of type {obj_type}.")
+
+
 class ColCountError(Exception):
     """Column count error."""
 

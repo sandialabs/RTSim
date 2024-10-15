@@ -2,6 +2,7 @@
 
 import numpy as np
 from .exceptions import (
+    ComponentTypeError,
     ColCountError,
     MatrixTypeError,
     MaxValueError,
@@ -45,6 +46,12 @@ def number(value, minvalue=None, maxvalue=None):
         raise MinValueError(value, minvalue)
     if maxvalue is not None and value > maxvalue:
         raise MaxValueError(value, maxvalue)
+
+
+def component(obj, obj_type):
+    """Validate component type."""
+    if not isinstance(obj, obj_type):
+        raise ComponentTypeError(obj, obj_type)
 
 
 def string(value):
