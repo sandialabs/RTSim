@@ -37,22 +37,22 @@ class ConstantPVA:
     @property
     def v(self):
         """Velocity vector."""
-        return self._p
+        return self._v
 
     @v.setter
     def v(self, value):
         validate.constant_vector(value)
-        self._p = value
+        self._v = value
 
     @property
     def a(self):
         """Acceleration vector."""
-        return self._p
+        return self._a
 
     @a.setter
     def a(self, value):
         validate.constant_vector(value)
-        self._p = value
+        self._a = value
 
     def __repr__(self) -> str:
         """Return a string representation of the constant PVA."""
@@ -104,22 +104,22 @@ class TimePVA:
     @property
     def v(self):
         """Velocity vector."""
-        return self._p
+        return self._v
 
     @v.setter
     def v(self, value):
         validate.time_vector(value)
-        self._p = value
+        self._v = value
 
     @property
     def a(self):
         """Acceleration vector."""
-        return self._p
+        return self._a
 
     @a.setter
     def a(self, value):
         validate.time_vector(value)
-        self._p = value
+        self._a = value
 
     def __repr__(self) -> str:
         """Return a string representation of the time varying PVA."""

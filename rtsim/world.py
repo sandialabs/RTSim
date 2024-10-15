@@ -1,8 +1,11 @@
 """World component."""
 
-from .base import Base
 from . import validate
+from .base import Base
+from .frame import Frame
+from .pva import ConstantPVA, TimePVA
 from math import tau
+import numpy as np
 
 
 class World(Base):
@@ -32,22 +35,41 @@ class World(Base):
 
     @property
     def a(self):
-        """Semi-major-axis getter."""
+        """Semi-major-axis."""
         return self._a
 
     @a.setter
     def a(self, value):
-        """Semi-major-axis setter."""
         validate.number(value, minvalue=0.0)
         self._a = value
 
     @property
     def omega_ie(self):
-        """Rotation rate getter."""
+        """Rotation rate."""
         return self._omega_ie
 
     @omega_ie.setter
     def omega_ie(self, value):
-        """Rotation rate setter."""
         validate.number(value, minvalue=0.0, maxvalue=tau)
         self._omega_ie = value
+
+    def process(self, time: np.ndarray) -> None:
+        """
+        Compute world coordinate frame parameters for all input time steps.
+
+        :param time: Relative time of each step.
+        :type time: np.ndarray
+        """
+        steps = time.size
+        omega = np.zeros((steps, 3, 1))
+        omega[:, 2, 0] = self._omega_ie
+
+        theta = np.zeros((steps, 3, 1))
+        theta[:, 2, 0] = omega[:, 2, 0] * time
+
+        self.frame = Frame(
+            ConstantPVA(p=np.zeros((3, 1)), v=np.zeros((3, 1)), a=np.zeros((3, 1))),
+            TimePVA(p=theta, v=omega, a=np.zeros((steps, 3, 1))),
+        )
+
+        self.frame.C = np.transpose(self.frame.C, (0, 2, 1))
