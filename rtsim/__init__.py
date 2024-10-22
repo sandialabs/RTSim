@@ -12,4 +12,4 @@ from .pva import ConstantPVA, TimePVA
 from .testbed import Testbed
 from .world import World
 
-__version__ = "0.0.1"
+__version__ = "0.1.0"
