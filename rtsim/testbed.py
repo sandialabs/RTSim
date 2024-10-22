@@ -3,6 +3,7 @@
 from .axis import Axis
 from .base import Base
 from .body import Body
+from .exceptions import AxisCountError
 from .pva import ConstantPVA
 from .frame import Frame
 from .mount import Mount
@@ -19,7 +20,7 @@ class Testbed(Base):
         self,
         moniker: str,
         llhg: tuple[float, float, float, float],
-        components: tuple[World, list[Axis], Mount, Body],
+        components: tuple[World, dict[int, Axis], Mount, Body],
     ) -> None:
         """
         Initialize testbed.
@@ -32,7 +33,7 @@ class Testbed(Base):
         :type llhg: tuple[float, float, float, float]
 
         :param components: Components of the testbed (World, Rotating Axes, Mount and Body)
-        :type components: tuple[World, list[Axis], Mount, Body]
+        :type components: tuple[World, dict[Axis], Mount, Body]
         """
         super().__init__(moniker)
 
@@ -121,11 +122,11 @@ class Testbed(Base):
 
     @axes.setter
     def axes(self, obj):
-        if not isinstance(obj, list):
+        if not isinstance(obj, dict):
             raise TypeError
 
         for axis in obj:
-            validate.component(axis, Axis)
+            validate.component(obj[axis], Axis)
 
         self._axes = obj
 
@@ -148,3 +149,60 @@ class Testbed(Base):
     def body(self, obj):
         validate.component(obj, Body)
         self._body = obj
+
+    def process(self, time: np.ndarray, misalignments: dict[int, Frame], rotations: dict[int, Frame]) -> None:
+        """
+        Process testbed inputs into body inputs.
+
+        :param time: Relative time of each step.
+        :type time: np.ndarray
+
+        :param misalignments: Misalignment coordinate frame of each testbed axis.
+        :type misalignments: list[Frame[Full]]
+
+        :param rotations: Rotating coordinate frame of each testbed axis.
+        :type rotations: list[Frame[Rotating]]
+        """
+        if len(misalignments) != len(self._axes):
+            raise AxisCountError(len(self._axes), "misalignment")
+        if len(rotations) != len(self._axes):
+            raise AxisCountError(len(self._axes), "rotations")
+
+        self.time = time
+        self.world.process(self.time)
+
+        alpha = ConstantPVA(
+            p=self.mount.frame.linear.p + self.mount.frame.C @ self.body.frame.linear.p,
+            v=np.zeros((3, 1)),
+            a=np.zeros((3, 1)),
+        )
+
+        omega = ConstantPVA(p=np.zeros((3, 1)), v=np.zeros((3, 1)), a=np.zeros((3, 1)))
+
+        Cib = self.mount.frame.C @ self.body.frame.C
+
+        for a in self.axes:
+            alpha, omega = self.axes[a].process(misalignments[a], rotations[a], alpha, omega)
+            Cib = self.axes[a].zeta.C @ self.axes[a].mu.C @ self.axes[a].rho.C @ Cib
+
+        Cin = self.world.frame.C @ self.nav.C
+        Cib = Cin @ Cib
+
+        self.aaiib = self.world.frame.Omega @ Cin @ omega.v + Cin @ omega.a
+        self.aviib = self.world.frame.angular.v + Cin @ omega.v
+
+        self.laiib = (
+            self.world.frame.Omega @ self.world.frame.Omega @ self.world.frame.C @ self.nav.linear.p
+            + self.world.frame.Omega @ self.world.frame.Omega @ Cin @ alpha.p
+            + 2 * self.world.frame.Omega @ Cin @ alpha.v
+            + Cin @ alpha.a
+        )
+
+        self.sfiib = self.laiib + Cin @ np.array([[0.0], [0.0], [-self.g]])
+
+        Cbi = np.transpose(Cib, (0, 2, 1))
+
+        self.avbib = Cbi @ self.aviib
+        self.aabib = Cbi @ self.aaiib
+        self.labib = Cbi @ self.laiib
+        self.sfbib = Cbi @ self.sfiib

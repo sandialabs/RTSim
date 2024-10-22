@@ -3,6 +3,14 @@
 from typing import Any  # , Callable
 
 
+class AxisCountError(Exception):
+    """Axis count error."""
+
+    def __init__(self, ax_count: int, in_name: str) -> None:
+        """Initialize axis count error."""
+        super().__init__(f"Expected {in_name} input to have {ax_count} frames.")
+
+
 class ComponentTypeError(TypeError):
     """Component type error."""
 
