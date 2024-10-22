@@ -246,7 +246,7 @@ class Testbed(Base):
             "aa": {"unit": r"\radian/\second\squared", "sym": r"\dot{\boldsymbol{\omega}}"},
         }
 
-        x = vars(self)[f"{variable}{frame}ib"].copy()
+        x = np.round(vars(self)[f"{variable}{frame}ib"].copy(), 12)
         x /= 1 if variable[0] == "a" else self.g
         exp, mdf = unit_modifier(x)
 
