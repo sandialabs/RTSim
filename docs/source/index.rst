@@ -36,4 +36,3 @@ Welcome to RTSim's documentation!
    frames
    math
    signals
-   api
