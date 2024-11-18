@@ -33,9 +33,7 @@ NTESS, the U.S. Government retains certain rights in this software.
 author = "Jason K. Bingham"
 
 # The full version, including alpha/beta/rc tags
-import rtsim  # noqa: E402
-
-release = rtsim.__version__
+release = "0.1.0"
 
 
 # -- General configuration ---------------------------------------------------
