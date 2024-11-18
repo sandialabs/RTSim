@@ -16,12 +16,11 @@ add these directories to sys.path here. If the directory is relative to the
 documentation root, use os.path.abspath to make it absolute, like shown here.
 """
 
-from pathlib import Path
+import os
 import sys
 
-sys.path.append(str(Path.cwd().parents[2].resolve() / "RTSim"))
+sys.path.insert(0, os.path.abspath(".."))  # noqa: PTH100
 
-import rtsim
 
 # -- Project information -----------------------------------------------------
 
@@ -34,6 +33,8 @@ NTESS, the U.S. Government retains certain rights in this software.
 author = "Jason K. Bingham"
 
 # The full version, including alpha/beta/rc tags
+import rtsim  # noqa: E402
+
 release = rtsim.__version__
 
 
