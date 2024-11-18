@@ -1,4 +1,10 @@
-"""World component."""
+"""
+RTSim World component.
+
+Copyright © 2024, National Technology & Engineering Solutions of
+Sandia, LLC (NTESS). Under the terms of Contract DE-NA0003525 with
+NTESS, the U.S. Government retains certain rights in this software.
+"""
 
 from . import validate
 from .base import Base

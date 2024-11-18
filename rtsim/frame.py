@@ -1,4 +1,10 @@
-"""RTSim coordinate frames."""
+"""
+RTSim coordinate frames.
+
+Copyright © 2024, National Technology & Engineering Solutions of
+Sandia, LLC (NTESS). Under the terms of Contract DE-NA0003525 with
+NTESS, the U.S. Government retains certain rights in this software.
+"""
 
 from .exceptions import PVATypeError
 from .pva import ConstantPVA, TimePVA
