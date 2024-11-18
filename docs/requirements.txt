@@ -1,4 +1,4 @@
-# Requirements for building the `my-repository-name` documentation.
+# Requirements for building the `RTSim` documentation.
 
 sphinx>=6.0,<7.0
 sphinx-autodoc-typehints
