@@ -17,11 +17,11 @@ documentation root, use os.path.abspath to make it absolute, like shown here.
 """
 
 from pathlib import Path
-import rtsim
 import sys
 
 sys.path.append(str(Path.cwd().parents[2].resolve() / "RTSim"))
 
+import rtsim
 
 # -- Project information -----------------------------------------------------
 
