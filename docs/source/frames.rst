@@ -101,7 +101,7 @@ The testbed axes come next in the hierarchy starting with the outermost axis (:m
 
 Zero Frame
 ^^^^^^^^^^^
-A zero (:code:`zero`) frame :math:`(\zeta_a)` is the highest frame in each testbed axis and relates a perfectly aligned axis in the 'zero' position to the next higher frame :math:`\left(\mathrm{h}\right)`. Each zero frame is a fixed frame and is positioned such that the frame's z-axis aligns with the ideal rotation axis for the corresponding testbed axis. For each zero frame: :math:`\mathrm{h} = \mathrm{n}` when :math:`a = A`, and :math:`\mathrm{h} = \rho_{a+1}` when :math:`a < A`. The :math:`\zeta_a` frame parameters are:
+A zero frame :math:`(\zeta_a)` is the highest frame in each testbed axis and relates a perfectly aligned axis in the 'zero' position to the next higher frame :math:`\left(\mathrm{h}\right)`. Each zero frame is a fixed frame and is positioned such that the frame's z-axis aligns with the ideal rotation axis for the corresponding testbed axis. For each zero frame: :math:`\mathrm{h} = \mathrm{n}` when :math:`a = A`, and :math:`\mathrm{h} = \rho_{a+1}` when :math:`a < A`. The :math:`\zeta_a` frame parameters are:
 
 .. math::
     \boldsymbol{r}^\mathrm{h}_{\mathrm{h}{\zeta_a}} = \begin{bmatrix}x^\mathrm{h}_{\mathrm{h}{\zeta_a}} \\[0.5em] y^\mathrm{h}_{\mathrm{h}{\zeta_a}} \\[0.5em] z^\mathrm{h}_{\mathrm{h}{\zeta_a}} \end{bmatrix} \quad \quad \boldsymbol{\theta}^\mathrm{h}_{\mathrm{h}{\zeta_a}} = \begin{bmatrix} \alpha^\mathrm{h}_{\mathrm{h}{\zeta_a}} \\[0.5em] \beta^\mathrm{h}_{\mathrm{h}{\zeta_a}} \\[0.5em] \gamma^\mathrm{h}_{\mathrm{h}{\zeta_a}} \end{bmatrix}
@@ -110,7 +110,7 @@ The :math:`\zeta_A` to :math:`\mathrm{n}` offset :math:`\left(\boldsymbol{r}^\ma
 
 Misalignment Frame
 ^^^^^^^^^^^^^^^^^^
-A misalignment (:code:`msln`) frame :math:`(\mu_a)` of each axis follows the corresponding :math:`\zeta_a` frame and applies testbed errors to the axis. The :math:`\mu_a` frames are 6 DOF frames to allow for testbed error accounting. The :math:`\mu_a` frame parameters are:
+A misalignment frame :math:`(\mu_a)` of each axis follows the corresponding :math:`\zeta_a` frame and applies testbed errors to the axis. The :math:`\mu_a` frames are 6 DOF frames to allow for testbed error accounting. The :math:`\mu_a` frame parameters are:
 
 .. math::
     \boldsymbol{r}^{\zeta_a}_{{\zeta_a}{\mu_a}}(t) = \begin{bmatrix}x^{\zeta_a}_{{\zeta_a}{\mu_a}}\\ y^{\zeta_a}_{{\zeta_a}{\mu_a}} \\ z^{\zeta_a}_{{\zeta_a}{\mu_a}}\end{bmatrix}(t) \quad\quad\quad \boldsymbol{v}^{\zeta_a}_{{\zeta_a}{\mu_a}}(t) = \begin{bmatrix}\dot{x}^{\zeta_a}_{{\zeta_a}{\mu_a}}\\ \dot{y}^{\zeta_a}_{{\zeta_a}{\mu_a}} \\ \dot{z}^{\zeta_a}_{{\zeta_a}{\mu_a}}\end{bmatrix}(t) \quad\quad\quad \boldsymbol{a}^{\zeta_a}_{{\zeta_a}{\mu_a}}(t) = \begin{bmatrix}\ddot{x}^{\zeta_a}_{{\zeta_a}{\mu_a}}\\ \ddot{y}^{\zeta_a}_{{\zeta_a}{\mu_a}} \\ \ddot{z}^{\zeta_a}_{{\zeta_a}{\mu_a}}\end{bmatrix}(t)\\
@@ -122,7 +122,7 @@ The offsets account for testbed machining errors while :math:`\alpha^{\zeta_a}_{
 
 Rotation Frame
 ^^^^^^^^^^^^^^
-The rotation (:code:`rotn`) frames :math:`(\rho_a)` are the lowest of the table axis frames and applies the commanded rotational motion of the axis. They are rotating frames. The :math:`\rho_a` frame parameters are:
+The rotation frames :math:`(\rho_a)` are the lowest of the table axis frames and applies the commanded rotational motion of the axis. They are rotating frames. The :math:`\rho_a` frame parameters are:
 
 .. math::
     \boldsymbol{r}^{\mu_a}_{{\mu_a}{\rho_a}} = \begin{bmatrix}0\\0\\0\end{bmatrix} \quad \quad \boldsymbol{\theta}^{\mu_a}_{{\mu_a}{\rho_a}}(t) = \begin{bmatrix}0\\0\\\gamma^{\mu_a}_{{\mu_a}{\rho_a}}\end{bmatrix}(t) \quad \quad \boldsymbol{\omega}^{\mu_a}_{{\mu_a}{\rho_a}}(t) = \begin{bmatrix}0\\0\\\dot{\gamma}^{\mu_a}_{{\mu_a}{\rho_a}}\end{bmatrix}(t) \quad \quad \dot{\boldsymbol{\omega}}^{\mu_a}_{{\mu_a}{\rho_a}}(t) = \begin{bmatrix}0\\0\\\ddot{\gamma}^{\mu_a}_{{\mu_a}{\rho_a}}\end{bmatrix}(t)
