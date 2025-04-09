@@ -137,11 +137,11 @@ class Testbed(Base):
 
     @axes.setter
     def axes(self, obj):
-        if not isinstance(obj, dict):
+        if not isinstance(obj, list):
             raise TypeError
 
         for axis in obj:
-            validate.component(obj[axis], Axis)
+            validate.component(axis, Axis)
 
         self._axes = obj
 
@@ -196,7 +196,7 @@ class Testbed(Base):
 
         Cib = self.mount.frame.C @ self.body.frame.C
 
-        for a in self.axes:
+        for a in range(len(self.axes)):
             alpha, omega = self.axes[a].process(misalignments[a], rotations[a], alpha, omega)
             Cib = self.axes[a].zeta.C @ self.axes[a].mu.C @ self.axes[a].rho.C @ Cib
 
